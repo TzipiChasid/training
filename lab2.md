@@ -21,8 +21,8 @@ tree shiyanlou/
 
 
 ### rm 
-The function of thiscommand is to deleteone or more files ordirectories in adirectory. It can alsodelete a directory andall files andsubdirectories underit. For the link file,only the link isdeleted, and theoriginal file remainsunchanged.
-"rm" is an abbreviation for remove.
+This command is to delete one or more files or directories in a directory. It can also delete a directory and all files and subdirectories under it. For the link file, only the link is deleted, leaving the original file unchanged.
+"rm" is short for remove.
 
 Command Format:
 `rm [options] file-or-directory`
@@ -45,8 +45,8 @@ Then move all the files into the folder
 
 ### mv
 The mv command's function is to move files or change file names. It is a commonly used command on Linux systems and is often used to back up files or directories.
-
-"mv" is an abbreviation of move.
+When the second parameter is an existing directory name, there can be multiple source files or directory parameters. The mv command moves the source files specified by each parameter to the target directory.
+"mv" is an abbreviation of move
 
 
 Command Format:

@@ -1,71 +1,71 @@
 select Query:
 	#SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE 
-	 FROM oe.product_information	
-	 ORDER BY PRODUCT_NAME
+	FROM oe.product_information	
+	ORDER BY PRODUCT_NAME
 	#SELECT CONCAT(FIRST_NAME||' ',LAST_NAME) as "full_name",PHONE_NUMBER,
-	 trunc(months_between(CURRENT_DATE,HIRE_DATE)) "numbers_of_years_worked_at_the_company" 
-	 FROM hr.employees
+	trunc(months_between(CURRENT_DATE,HIRE_DATE)) "numbers_of_years_worked_at_the_company" 
+	FROM hr.employees
 	#SELECT CONCAT(FIRST_NAME||' ',LAST_NAME) as "full_name",SALARY
-	 FROM  hr.employees
-	 WHERE EXTRACT(Year FROM HIRE_DATE) > 2005
-	 ORDER BY SALARY
+	FROM  hr.employees
+	WHERE EXTRACT(Year FROM HIRE_DATE) > 2005
+	ORDER BY SALARY
 	#SELECT PRODUCT_NAME
-	 FROM  oe.product_information
-	 WHERE LIST_PRICE>100 AND MIN_PRICE>100
-	 ORDER BY PRODUCT_NAME
+	FROM  oe.product_information
+	WHERE LIST_PRICE>100 AND MIN_PRICE>100
+	ORDER BY PRODUCT_NAME
 join Tables:
 	#SELECT customers.CUSTOMER_ID,CONCAT(customers.CUST_FIRST_NAME||' ',customers.CUST_LAST_NAME) as name
-	 FROM oe.customers customers
-	 INNER JOIN oe.orders orders ON orders.CUSTOMER_ID = customers.CUSTOMER_ID 
-	 where (customers.CREDIT_LIMIT > 200 and customers.CREDIT_LIMIT < 700)
-	 and (EXTRACT(year FROM orders.ORDER_DATE) = 2007)
-	 ORDER BY orders.ORDER_ID
+	FROM oe.customers customers
+	INNER JOIN oe.orders orders ON orders.CUSTOMER_ID = customers.CUSTOMER_ID 
+	where (customers.CREDIT_LIMIT > 200 and customers.CREDIT_LIMIT < 700)
+	and (EXTRACT(year FROM orders.ORDER_DATE) = 2007)
+	ORDER BY orders.ORDER_ID
 	#SELECT product.PRODUCT_NAME ,categories.CATEGORY_NAME
-	 FROM oe.product_information product 
-	 INNER JOIN oe.categories_tab categories ON categories.CATEGORY_ID = product.CATEGORY_ID 
-	 ORDER BY categories.CATEGORY_NAME
+	FROM oe.product_information product 
+	INNER JOIN oe.categories_tab categories ON categories.CATEGORY_ID = product.CATEGORY_ID 
+	ORDER BY categories.CATEGORY_NAME
 	#SELECT CONCAT(customers.CUST_FIRST_NAME||' ',customers.CUST_LAST_NAME) as "full_name",orders.ORDER_DATE,
-	 productInformation.LIST_PRICE   
-	 FROM oe.order_items orderItems
-	 INNER JOIN oe. product_information productInformation 
-	 ON orderItems.PRODUCT_ID=productInformation.PRODUCT_ID
-	 INNER JOIN  oe.orders orders
-	 ON orderItems.ORDER_ID=orders.ORDER_ID
-	 INNER JOIN  oe. customers customers
-	 ON customers.CUSTOMER_ID=orders.CUSTOMER_ID
-	 where (EXTRACT(year FROM orders.ORDER_DATE) = 2007)and productInformation.LIST_PRICE>10
+	productInformation.LIST_PRICE   
+	FROM oe.order_items orderItems
+	INNER JOIN oe. product_information productInformation 
+	ON orderItems.PRODUCT_ID=productInformation.PRODUCT_ID
+	INNER JOIN  oe.orders orders
+	ON orderItems.ORDER_ID=orders.ORDER_ID
+	INNER JOIN  oe. customers customers
+	ON customers.CUSTOMER_ID=orders.CUSTOMER_ID
+	WHERE (EXTRACT(year FROM orders.ORDER_DATE) = 2007)and productInformation.LIST_PRICE>10
 	#SELECT 
-	 orders.ORDER_ID
-	 ,productInformation.PRODUCT_NAME
-	 ,orderItems.UNIT_PRICE*orderItems.QUANTITY as price
-	 FROM oe.order_items orderItems
-	 INNER JOIN oe. product_information productInformation 
-	 ON orderItems.PRODUCT_ID=productInformation.PRODUCT_ID
-	 INNER JOIN  oe.orders orders
-	 ON orderItems.ORDER_ID=orders.ORDER_ID
-	 INNER JOIN  oe. customers customers
-	 ON customers.CUSTOMER_ID=orders.CUSTOMER_ID
-	 where (EXTRACT(year FROM orders.ORDER_DATE) = 2007)
+	orders.ORDER_ID
+	,productInformation.PRODUCT_NAME
+	,orderItems.UNIT_PRICE*orderItems.QUANTITY as price
+	FROM oe.order_items orderItems
+	INNER JOIN oe. product_information productInformation 
+	ON orderItems.PRODUCT_ID=productInformation.PRODUCT_ID
+	INNER JOIN  oe.orders orders
+	ON orderItems.ORDER_ID=orders.ORDER_ID
+	INNER JOIN  oe. customers customers
+	ON customers.CUSTOMER_ID=orders.CUSTOMER_ID
+	WHERE (EXTRACT(year FROM orders.ORDER_DATE) = 2007)
 	#SELECT CONCAT(employess1.FIRST_NAME||' ',employess1.LAST_NAME) as "full name"
-	 FROM hr.employees employess1
-	 INNER JOIN hr.employees employess2
-	 ON employess2.EMPLOYEE_ID=employess1.MANAGER_ID
+	FROM hr.employees employess1
+	INNER JOIN hr.employees employess2
+	ON employess2.EMPLOYEE_ID=employess1.MANAGER_ID
 Aggregation Functions: 
 	#SELECT AVG(SALARY) as avarage
-	 FROM hr.employees
+	FROM hr.employees
 	#SELECT COUNT(pr.PRODUCT_NAME) as count,pr.SUPPLIER_ID
-	 FROM oe.product_information pr
-	 GROUP BY pr.SUPPLIER_ID
+	FROM oe.product_information pr
+	GROUP BY pr.SUPPLIER_ID
 	#SELECT items.PRODUCT_ID,sum(items.QUANTITY) as "id product"
-	 FROM oe.order_items items
-	 GROUP BY items.PRODUCT_ID
+	FROM oe.order_items items
+	GROUP BY items.PRODUCT_ID
 	#SELECT MAX(EXTRACT(year FROM orders.ORDER_DATE)) AS max,MIN(EXTRACT(year FROM orders.ORDER_DATE)) AS min,sum(ORDER_TOTAL) "ORDER TOTAL" 
-	 ,COUNT(EXTRACT(year FROM orders.ORDER_DATE)) AS "COUNT PRODUCT"
-	 FROM oe.orders orders
-	 GROUP BY EXTRACT(year FROM orders.ORDER_DATE)
+	,COUNT(EXTRACT(year FROM orders.ORDER_DATE)) AS "COUNT PRODUCT"
+	FROM oe.orders orders
+	GROUP BY EXTRACT(year FROM orders.ORDER_DATE)
 	#SELECT sum(ORDER_TOTAL) "ORDER TOTAL",COUNT(EXTRACT(Day FROM orders.ORDER_DATE)) AS "COUNT PRODUCT"
-	 FROM oe.orders orders
-     GROUP BY EXTRACT(Day FROM orders.ORDER_DATE)
+	FROM oe.orders orders
+    GROUP BY EXTRACT(Day FROM orders.ORDER_DATE)
 	#SELECT SUM(ORDER_TOTAL) as "total sum"
 	,SALES_REP_ID
 	FROM oe.orders
@@ -73,17 +73,17 @@ Aggregation Functions:
 	GROUP BY (SALES_REP_ID)
 	HAVING SUM(ORDER_TOTAL)>20000 
 	#SELECT sum(ORDER_TOTAL/1000) AS "COUNT POINT",CUSTOMER_ID
-	 FROM oe.orders
-	 GROUP BY CUSTOMER_ID
+	FROM oe.orders
+	GROUP BY CUSTOMER_ID
 Sub Queries:
 	#SELECT PRODUCT_NAME,LIST_PRICE
-	 FROM oe.product_information 
-	 WHERE LIST_PRICE =
+	FROM oe.product_information 
+	WHERE LIST_PRICE =
     (SELECT max(LIST_PRICE)
-     FROM oe.product_information )
+    FROM oe.product_information )
 	#SELECT PRODUCT_NAME
-	 FROM oe.product_information
-	 WHERE PRODUCT_ID=
+	FROM oe.product_information
+	WHERE PRODUCT_ID=
 	(SELECT PRODUCT_ID FROM oe.order_items WHERE UNIT_PRICE=
     (SELECT MAX(UNIT_PRICE) FROM oe.order_items) AND ROWNUM <= 1);
 	#SELECT UNIT_PRICE
